@@ -10,28 +10,28 @@ namespace Domain.Entities
     [Table("Reservation")]
     public class Reservation
     {
-        private int id;
+        //private int id;
 
-        private int gardenId;
+        //private int gardenId;
 
-        private int clientId;
+        //private int clientId;
 
-        private DateTime reservationDate;
+        //private DateTime reservationDate;
 
-        private int price;
+        //private int price;
 
 
         [PrimaryKey]
         [Column("Id")]
-        public int Id { get => id; set => id = value; }
+        public int Id { get; set; }
         [Column("GardenId")]
-        public int GardenId { get => gardenId; set => gardenId = value; }
+        public int GardenId { get; set; }
         [Column("ClientId")]
-        public int ClientId { get => clientId; set => clientId = value; }
+        public int ClientId { get; set; }
         [Column("ReservationDate")]
-        public DateTime ReservationDate { get => reservationDate; set => reservationDate = value; }
+        public DateTime ReservationDate { get; set; }
         [Column("Price")]
-        public int Price { get => price; set => price = value; }
+        public int Price { get; set; }
 
 
         public Garden Garden;

@@ -10,34 +10,34 @@ namespace Domain.Entities
     [Table("Address")]
     public class Address
     {
-        private int id;
+        //    private int id;
 
-        private int gardenId;
+        //    private int gardenId;
 
-        private string country;
+        //    private string country;
 
-        private string postalCode;
+        //    private string postalCode;
 
-        private string city;
+        //    private string city;
 
-        private string street;
+        //    private string street;
 
 
         [PrimaryKey]
         [Column("Id")]
-        public int Id { get => id; set => id = value; }
+        public int Id { get; set; }
         [Column("GardenId")]
-        public int GardenId { get => gardenId; set => gardenId = value; }
+        public int GardenId { get; set; }
         [Column("Country")]
-        public string Country { get => country; set => country = value; }
+        public string Country { get; set; }
         [Column("PostalCode")]
-        public string PostalCode { get => postalCode; set => postalCode = value; }
+        public string PostalCode { get; set; }
         [Column("City")]
-        public string City { get => city; set => city = value; }
+        public string City { get; set; }
         [Column("Street")]
-        public string Street { get => street; set => street = value; }
-        
-        
+        public string Street { get; set; }
+
+
         public Garden Garden;
     }
 }

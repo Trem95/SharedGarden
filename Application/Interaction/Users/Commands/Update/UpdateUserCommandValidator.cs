@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Interaction.Users.Commands
+namespace Application.Interaction.Users.Commands.Update
 {
-    public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
+    public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
     {
+
         private readonly IApplicationDbContext _context;
-        public CreateUserCommandValidator(IApplicationDbContext context)
+        public UpdateUserCommandValidator(IApplicationDbContext context)
         {
             _context = context;
 
@@ -22,9 +23,10 @@ namespace Application.Interaction.Users.Commands
                 .MustAsync(EmailUnique).WithMessage("Email not available");
         }
 
-        public async Task<bool> EmailUnique(string email, CancellationToken cancellationToken)
+        public async Task<bool> EmailUnique(UpdateUserCommand model,string email, CancellationToken cancellationToken)
         {
             return await _context.Users
+                .Where(u => u.Id != model.Id)
                 .AllAsync(u => u.Email != email);
         }
 

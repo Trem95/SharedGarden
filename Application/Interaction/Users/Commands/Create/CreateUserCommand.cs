@@ -7,11 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Interaction.Users.Commands
+namespace Application.Interaction.Users.Commands.Create
 {
     public class CreateUserCommand : IRequest<int>
     {
-        public int Id { get;set; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -29,7 +28,7 @@ namespace Application.Interaction.Users.Commands
         {
             var entity = new User
             {
-                Id = request.Id,
+                Id = 0,
                 Name = request.Name,
                 LastName = request.LastName,
                 Email = request.Email,
@@ -38,8 +37,6 @@ namespace Application.Interaction.Users.Commands
             _context.Users.Add(entity);
             await _context.SaveChangesAsync(cancellationToken);
             return entity.Id;
-
-            
         }
     }
 }

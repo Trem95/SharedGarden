@@ -2,6 +2,7 @@ using Application;
 using FluentValidation.AspNetCore;
 using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using SharedGarden.API.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
@@ -17,7 +18,7 @@ builder.Services.AddInfrastructure(configuration);
 
 builder.Services.AddMvc(options =>
 {
-    //options.Filters.Add(new ApiExceptionFilterAttribute());
+    options.Filters.Add(new ApiExceptionFilterAttribute());
     options.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status406NotAcceptable));
     options.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status500InternalServerError));
     options.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status401Unauthorized));

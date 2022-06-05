@@ -1,10 +1,94 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Application.Common.Exceptions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+
 
 namespace SharedGarden.API.Exceptions
 {
-    public class ApiExceptionFilterAttribute
+    public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
     {
-        //ATR TODO CHECK VIDEO 
+        private readonly IDictionary<Type, Action<ExceptionContext>> _exceptionHandler;
+        public ApiExceptionFilterAttribute()
+        {
+            _exceptionHandler = new Dictionary<Type, Action<ExceptionContext>>
+            {
+                {typeof(ValidationException), HandleValidationException },
+                {typeof(NotFoundException), HandleNotFoundException }
+            };
+        }
+
+        public void OnException(ExceptionContext context)
+        {
+            HandleException(context);
+            base.OnException(context);
+        }
+
+        private void HandleException(ExceptionContext context)
+        {
+            Type type = context.Exception.GetType();
+            if (_exceptionHandler.ContainsKey(type))
+            {
+                _exceptionHandler[type].Invoke(context);
+                return;
+            }
+
+            if (!context.ModelState.IsValid)
+            {
+                HandleInvalidModelStateException(context);
+            }
+        }
+        private void HandleUnknownException(ExceptionContext context)
+        {
+            var details = new ProblemDetails
+            {
+                Status = StatusCodes.Status500InternalServerError,
+                Title = "An error occured while processing your request.",
+                Type = "http://tools.ietf.org/html/rfc7231#section-6.6.1"
+            };
+
+            context.Result = new ObjectResult(details)
+            {
+                StatusCode = StatusCodes.Status500InternalServerError
+            };
+
+            context.ExceptionHandled = true;
+        }
+
+        private void HandleValidationException(ExceptionContext context)
+        {
+            var exception = context.Exception as ValidationException;
+            var details = new ValidationProblemDetails(exception.Errors)
+            {
+                Type = "https://tools.iets.org/html+rfc7231#section-6.5.1"
+            };
+
+            context.Result = new BadRequestObjectResult(details);
+            context.ExceptionHandled = true;
+
+        }
+
+        private void HandleInvalidModelStateException(ExceptionContext context)
+        {
+            var details = new ValidationProblemDetails(context.ModelState)
+            {
+                Type = "https://tools.iets.org/html+rfc7231#section-6.5.1"
+            };
+
+            context.Result = new BadRequestObjectResult(details);
+            context.ExceptionHandled = true;
+
+        }
+
+        private void HandleNotFoundException(ExceptionContext context)
+        {
+            var exception = context.Exception as NotFoundException;
+            var details = new ProblemDetails()
+            {
+                Type = "https://tools.iets.org/html+rfc7231#section-6.5.4",
+                Title = "The specified resources was not found.",
+                Detail = exception.Message
+            };
+        }
     }
+
 }

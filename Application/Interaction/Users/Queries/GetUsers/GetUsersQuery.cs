@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces;
+using Application.Interaction.Users.Queries.DTO;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Interaction.Users.Queries
+namespace Application.Interaction.Users.Queries.GetUsers
 {
     public class GetUsersQuery : IRequest<UsersVm>
     {
@@ -29,10 +30,12 @@ namespace Application.Interaction.Users.Queries
             return new UsersVm
             {
                 UserList = await _context.Users
-                .ProjectTo<UserDTO>(_mapper.ConfigurationProvider)
-                .OrderBy(u => u.Id)
-                .ToListAsync(cancellationToken)
+                    .ProjectTo<UserDTO>(_mapper.ConfigurationProvider)
+                    .OrderBy(u => u.Id)
+                    .ToListAsync(cancellationToken)
             };
+
+            return null;
         }
     }
 

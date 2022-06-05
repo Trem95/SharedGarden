@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Interaction.Gardens.Queries
+namespace Application.Interaction.Users.Queries.DTO
 {
-    public class GardensVm
+    public class UsersVm
     {
-        public IList<GardensVm> GardenList { get; set; }
+        public IList<UserDTO> UserList { get; set; }
     }
 }

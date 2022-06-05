@@ -1,15 +1,18 @@
-﻿using Application.Interaction.Addresses.Queries;
-using Application.Interaction.Reservations.Queries;
-using Application.Interaction.Users.Queries;
+﻿using Application.Common.Mapping;
+using Application.Interaction.Addresses.Queries.DTO;
+using Application.Interaction.Reservations.Queries.DTO;
+using Application.Interaction.Users.Queries.DTO;
+using AutoMapper;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Interaction.Gardens.Queries
+namespace Application.Interaction.Gardens.Queries.DTO
 {
-    public class GardenDTO
+    public class GardenDTO : IMapFrom<Garden>
     {
         public int Id { get; set; }
         public int OwnerId { get; set; }
@@ -22,5 +25,10 @@ namespace Application.Interaction.Gardens.Queries
         public UserDTO Owner { get; set; }
         public AddressDTO Address { get; set; }
         public List<ReservationDTO> Reservations { get; set; }
+
+        public void Mapping(Profile profile)
+        {
+            profile.CreateMap<Garden, GardenDTO>();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using AutoMapper;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,28 +12,28 @@ namespace Domain.Entities
     [Table("User")]
     public class User
     {
-        private int id;
+        //private int id;
 
-        private string name;
+        //private string name;
 
-        private string lastName;
+        //private string lastName;
 
-        private string email;
+        //private string email;
 
-        private bool isAdmin;
+        //private bool isAdmin;
 
         [PrimaryKey]
 
         [Column("Id")]
-        public int Id { get => id; set => id = value; }
+        public int Id { get ; set ; }
         [Column("Name")]
-        public string Name { get => name; set => name = value; }
+        public string Name { get ; set; }
         [Column("LastName")]
-        public string LastName { get => lastName; set => lastName = value; }
+        public string LastName { get ; set ; }
         [Column("Email")]
-        public string Email { get => email; set => email = value; }
+        public string Email { get ; set ; }
         [Column("IsAdmin")]
-        public bool IsAdmin { get => isAdmin; set => isAdmin = value; }
+        public bool IsAdmin { get ; set ; }
 
 
         public List<Garden> Gardens;

@@ -10,39 +10,39 @@ namespace Domain.Entities
     [Table("Garden")]
     public class Garden
     {
-        private int id;
+        //private int id;
 
-        private int ownerId;
+        //private int ownerId;
 
-        private int addressId;
+        //private int addressId;
 
-        private string name;
+        //private string name;
 
-        private string fire;
+        //private string fire;
 
-        private string shelter;
+        //private string shelter;
 
-        private string description;
+        //private string description;
 
         [PrimaryKey]
         [Column("Id")]
-        public int Id { get => id; set => id = value; }
+        public int Id { get; set; }
         [Column("OwnerId")]
-        public int OwnerId { get => ownerId; set => ownerId = value; }
+        public int OwnerId { get; set; }
         [Column("AddressId")]
-        public int AddressId { get => addressId; set => addressId = value; }
+        public int AddressId { get; set; }
         [Column("Name")]
-        public string Name { get => name; set => name = value; }
+        public string Name { get; set; }
         [Column("Fire")]
-        public string Fire { get => fire; set => fire = value; }
+        public string Fire { get; set; }
         [Column("Shelter")]
-        public string Shelter { get => shelter; set => shelter = value; }
+        public string Shelter { get; set; }
         [Column("Description")]
-        public string Description { get => description; set => description = value; }
-        
-        
+        public string Description { get; set; }
+
+
         public User Owner;
         public Address Address;
-        public  List<Reservation> Reservations;
+        public List<Reservation> Reservations;
     }
 }
