@@ -27,14 +27,14 @@ namespace Application.Interaction.Gardens.Queries.DTO
         public AddressDTO Address { get; set; }
         public List<ReservationDTO> Reservations { get; set; }
 
-        public GardenDTO()
-        {
-            Name = String.Empty;
-            Description = String.Empty;
-            Fire = String.Empty;
-            Shelter = String.Empty;
-            Reservations = new List<ReservationDTO>();
-        }
+        //public GardenDTO()
+        //{
+        //    Name = String.Empty;
+        //    Description = String.Empty;
+        //    Fire = String.Empty;
+        //    Shelter = String.Empty;
+        //    Reservations = new List<ReservationDTO>();
+        //}
 
         public void Mapping(Profile profile)
         {

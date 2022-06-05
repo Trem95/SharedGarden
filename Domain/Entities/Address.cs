@@ -24,14 +24,14 @@ namespace Domain.Entities
         [Column("IsDeleted")]
         public bool IsDeleted { get; set; }
 
-        public Address()
-        {
-            Country = string.Empty;
-            PostalCode = string.Empty;
-            City = string.Empty;
-            Street = string.Empty;
-            Garden = new Garden();
-        }
+        //public Address()
+        //{
+        //    Country = string.Empty;
+        //    PostalCode = string.Empty;
+        //    City = string.Empty;
+        //    Street = string.Empty;
+        //    Garden = new Garden();
+        //}
 
         public Garden Garden;
     }

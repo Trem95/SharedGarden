@@ -12,16 +12,6 @@ namespace Domain.Entities
     [Table("User")]
     public class User
     {
-        //private int id;
-
-        //private string name;
-
-        //private string lastName;
-
-        //private string email;
-
-        //private bool isAdmin;
-
         [PrimaryKey]
 
         [Column("Id")]
@@ -37,14 +27,14 @@ namespace Domain.Entities
         [Column("IsDeleted")]
         public bool IsDeleted { get; set; }
 
-        public User()
-        {
-            Name = string.Empty;
-            LastName = string.Empty;
-            Email = string.Empty;
-            Gardens = new List<Garden>();
-            ReservationsAsClient = new List<Reservation>();
-        }
+        //public User()
+        //{
+        //    Name = string.Empty;
+        //    LastName = string.Empty;
+        //    Email = string.Empty;
+        //    Gardens = new List<Garden>();
+        //    ReservationsAsClient = new List<Reservation>();
+        //}
 
         public List<Garden> Gardens;
 

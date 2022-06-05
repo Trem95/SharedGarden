@@ -22,14 +22,14 @@ namespace Application.Interaction.Addresses.Queries.DTO
 
         public GardenDTO Garden { get; set; }
 
-        public AddressDTO()
-        {
-            Country = String.Empty;
-            PostalCode = String.Empty;
-            City = String.Empty;
-            Street = String.Empty;
-            Garden = new GardenDTO();
-        }
+        //public AddressDTO()
+        //{
+        //    Country = String.Empty;
+        //    PostalCode = String.Empty;
+        //    City = String.Empty;
+        //    Street = String.Empty;
+        //    Garden = new GardenDTO();
+        //}
 
         public void Mapping(Profile profile)
         {

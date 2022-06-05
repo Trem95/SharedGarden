@@ -25,12 +25,12 @@ namespace Domain.Entities
         [Column("IsAcceptedByOwner")]
         public bool IsAcceptedByOwner { get; set; }
 
-        public Reservation()
-        {
-            ReservationDate = new DateTime();
-            Garden = new Garden();
-            Client = new User();
-        }
+        //public Reservation()
+        //{
+        //    ReservationDate = new DateTime();
+        //    Garden = new Garden();
+        //    Client = new User();
+        //}
 
         public Garden Garden;
 

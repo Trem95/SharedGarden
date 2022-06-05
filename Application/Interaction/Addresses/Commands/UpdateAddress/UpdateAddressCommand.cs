@@ -27,7 +27,7 @@ namespace Application.Interaction.Addresses.Commands.UpdateAddress
             try
             {
                 var entity = await _context.Addresses.FindAsync(request.Id);
-                if (entity != null)
+                if (entity == null)
                 {
                     throw new NotFoundException(nameof(Address), request.Id);
                 }
