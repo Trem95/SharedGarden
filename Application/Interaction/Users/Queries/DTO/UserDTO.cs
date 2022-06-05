@@ -18,6 +18,7 @@ namespace Application.Interaction.Users.Queries.DTO
         public string LastName { get; set; }
         public string Email { get; set; }
         public bool IsAdmin { get; set; }
+        public bool IsDeleted { get; set; }
 
         public List<GardenDTO> Gardens { get; set; }
         public List<ReservationDTO> Reservations { get; set; }

@@ -1,13 +1,8 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.Interaction.Users.Commands.Create
+namespace Application.Interaction.Users.Commands.CreateUser
 {
     public class CreateUserCommand : IRequest<int>
     {
@@ -33,6 +28,7 @@ namespace Application.Interaction.Users.Commands.Create
                 LastName = request.LastName,
                 Email = request.Email,
                 IsAdmin = request.IsAdmin,
+                IsDeleted = false
             };
             _context.Users.Add(entity);
             await _context.SaveChangesAsync(cancellationToken);

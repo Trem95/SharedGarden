@@ -14,8 +14,8 @@ namespace Infrastructure.Persistence
     {
 
         public Microsoft.EntityFrameworkCore.DbSet<User> Users { get; set; }
-        public Microsoft.EntityFrameworkCore.DbSet<Address> Address { get; set; }
-        public Microsoft.EntityFrameworkCore.DbSet<Garden> Garden { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<Address> Addresses { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<Garden> Gardens { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<Reservation> Reservations { get; set; }
 
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base()
@@ -42,6 +42,7 @@ namespace Infrastructure.Persistence
                 entity.Property(x => x.LastName).HasColumnName("LastName");
                 entity.Property(x => x.Name).HasColumnName("Name");
                 entity.Property(x => x.IsAdmin).HasColumnName("IsAdmin");
+                entity.Property(x => x.IsDeleted).HasColumnName("IsDeleted");
             });
             builder.Entity<User>()
                 .HasKey(b => b.Id);
@@ -52,10 +53,12 @@ namespace Infrastructure.Persistence
 
                 entity.HasKey(x => x.Id);
                 entity.Property(x => x.Id).HasColumnName("Id");
+                entity.Property(x => x.Country).HasColumnName("Country");
                 entity.Property(x => x.Street).HasColumnName("Street");
                 entity.Property(x => x.PostalCode).HasColumnName("PostalCode");
                 entity.Property(x => x.City).HasColumnName("City");
-                entity.Property(x => x.GardenId).HasColumnName("GardenId");
+                entity.Property(x => x.IsDeleted).HasColumnName("IsDeleted");
+
 
                 entity.HasOne(x => x.Garden)
                 .WithOne(p => p.Address)
@@ -73,16 +76,14 @@ namespace Infrastructure.Persistence
 
                 entity.HasKey(x => x.Id);
                 entity.Property(x => x.Id).HasColumnName("Id");
-                entity.Property(x => x.Fire).HasColumnName("Fire");
                 entity.Property(x => x.Name).HasColumnName("Name");
+                entity.Property(x => x.Price).HasColumnName("Price");
                 entity.Property(x => x.AddressId).HasColumnName("AddressId");
                 entity.Property(x => x.OwnerId).HasColumnName("OwnerId");
+                entity.Property(x => x.Fire).HasColumnName("Fire");
                 entity.Property(x => x.Shelter).HasColumnName("Shelter");
                 entity.Property(x => x.Description).HasColumnName("Description");
-
-                entity.HasOne(x => x.Address)
-                .WithOne(p => p.Garden)
-                .HasForeignKey<Address>(b => b.GardenId);
+                entity.Property(x => x.IsDeleted).HasColumnName("IsDeleted");
 
                 entity.HasOne(x => x.Owner)
                 .WithMany(p => p.Gardens)
@@ -100,8 +101,9 @@ namespace Infrastructure.Persistence
                 entity.Property(x => x.Id).HasColumnName("Id");
                 entity.Property(x => x.GardenId).HasColumnName("GardenId");
                 entity.Property(x => x.ClientId).HasColumnName("ClientId");
-                entity.Property(x => x.Price).HasColumnName("Price");
                 entity.Property(x => x.ReservationDate).HasColumnName("ReservationDate");
+                entity.Property(x => x.IsCompleted).HasColumnName("IsCompleted");
+                entity.Property(x => x.IsAcceptedByOwner).HasColumnName("IsAcceptedByOwner");
 
                 entity.HasOne(x => x.Garden)
                 .WithMany(p => p.Reservations)

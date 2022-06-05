@@ -2,13 +2,8 @@
 using Application.Common.Interfaces;
 using Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.Interaction.Users.Commands.Update
+namespace Application.Interaction.Users.Commands.UpdateUser
 {
     public class UpdateUserCommand : IRequest
     {
@@ -17,6 +12,7 @@ namespace Application.Interaction.Users.Commands.Update
         public string LastName { get; set; }
         public string Email { get; set; }
         public bool IsAdmin { get; set; }
+        public bool IsDeleted { get; set; }
     }
 
     public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand>
@@ -38,6 +34,7 @@ namespace Application.Interaction.Users.Commands.Update
             entity.LastName= request.LastName;
             entity.Email = request.Email;
             entity.IsAdmin = request.IsAdmin;
+            entity.IsDeleted = request.IsDeleted;
             await _context.SaveChangesAsync(cancellationToken);
             return Unit.Value;
 

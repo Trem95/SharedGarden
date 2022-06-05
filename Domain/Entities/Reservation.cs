@@ -10,17 +10,6 @@ namespace Domain.Entities
     [Table("Reservation")]
     public class Reservation
     {
-        //private int id;
-
-        //private int gardenId;
-
-        //private int clientId;
-
-        //private DateTime reservationDate;
-
-        //private int price;
-
-
         [PrimaryKey]
         [Column("Id")]
         public int Id { get; set; }
@@ -30,9 +19,18 @@ namespace Domain.Entities
         public int ClientId { get; set; }
         [Column("ReservationDate")]
         public DateTime ReservationDate { get; set; }
-        [Column("Price")]
-        public int Price { get; set; }
 
+        [Column("IsCompleted")]
+        public bool IsCompleted{ get; set; }
+        [Column("IsAcceptedByOwner")]
+        public bool IsAcceptedByOwner { get; set; }
+
+        public Reservation()
+        {
+            ReservationDate = new DateTime();
+            Garden = new Garden();
+            Client = new User();
+        }
 
         public Garden Garden;
 

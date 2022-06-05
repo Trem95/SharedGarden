@@ -8,6 +8,6 @@ namespace Application.Interaction.Gardens.Queries.DTO
 {
     public class GardensVm
     {
-        public IList<GardensVm> GardenList { get; set; }
+        public IList<GardenDTO> GardenList { get; set; }
     }
 }

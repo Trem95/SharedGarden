@@ -14,14 +14,22 @@ namespace Application.Interaction.Addresses.Queries.DTO
     public class AddressDTO : IMapFrom<Address>
     {
         public int Id { get; set; }
-        public int GardenId { get; set; }
         public string Country { get; set; }
         public string PostalCode { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
+        public bool IsDeleted { get; set; }
 
         public GardenDTO Garden { get; set; }
-        public UserDTO User { get; set; }
+
+        public AddressDTO()
+        {
+            Country = String.Empty;
+            PostalCode = String.Empty;
+            City = String.Empty;
+            Street = String.Empty;
+            Garden = new GardenDTO();
+        }
 
         public void Mapping(Profile profile)
         {

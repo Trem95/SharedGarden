@@ -4,6 +4,7 @@ using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220605122535_SharedGardenAddIsDeleted")]
+    partial class SharedGardenAddIsDeleted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,8 +40,11 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Country");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("GardenId")
+                        .HasColumnType("int")
+                        .HasColumnName("GardenId");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
@@ -56,6 +61,9 @@ namespace Infrastructure.Migrations
                         .HasColumnName("Street");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GardenId")
+                        .IsUnique();
 
                     b.ToTable("Address", (string)null);
                 });
@@ -96,19 +104,12 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasColumnName("OwnerId");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("int")
-                        .HasColumnName("Price");
-
                     b.Property<string>("Shelter")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Shelter");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AddressId")
-                        .IsUnique();
 
                     b.HasIndex("OwnerId");
 
@@ -132,13 +133,13 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasColumnName("GardenId");
 
-                    b.Property<bool>("IsAcceptedByOwner")
-                        .HasColumnType("bit")
-                        .HasColumnName("IsAcceptedByOwner");
-
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit")
                         .HasColumnName("IsCompleted");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int")
+                        .HasColumnName("Price");
 
                     b.Property<DateTime>("ReservationDate")
                         .HasColumnType("datetime2")
@@ -189,21 +190,24 @@ namespace Infrastructure.Migrations
                     b.ToTable("User", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Garden", b =>
+            modelBuilder.Entity("Domain.Entities.Address", b =>
                 {
-                    b.HasOne("Domain.Entities.Address", "Address")
-                        .WithOne("Garden")
-                        .HasForeignKey("Domain.Entities.Garden", "AddressId")
+                    b.HasOne("Domain.Entities.Garden", "Garden")
+                        .WithOne("Address")
+                        .HasForeignKey("Domain.Entities.Address", "GardenId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.Navigation("Garden");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Garden", b =>
+                {
                     b.HasOne("Domain.Entities.User", "Owner")
                         .WithMany("Gardens")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Address");
 
                     b.Navigation("Owner");
                 });
@@ -227,13 +231,10 @@ namespace Infrastructure.Migrations
                     b.Navigation("Garden");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Address", b =>
-                {
-                    b.Navigation("Garden");
-                });
-
             modelBuilder.Entity("Domain.Entities.Garden", b =>
                 {
+                    b.Navigation("Address");
+
                     b.Navigation("Reservations");
                 });
 

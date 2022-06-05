@@ -1,14 +1,8 @@
-﻿
-using Application.Common.Interfaces;
+﻿using Application.Common.Interfaces;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.Interaction.Users.Commands.Create
+namespace Application.Interaction.Users.Commands.CreateUser
 {
     public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
     {
@@ -19,15 +13,24 @@ namespace Application.Interaction.Users.Commands.Create
             RuleFor(u => u.Email)
                 .MaximumLength(75).WithMessage("Max 75 characters.")
                 .NotEmpty().WithMessage("Email is required.")
-            .MustAsync(EmailUnique)    
-            .WithMessage("The specified email already exists.");
+                .MustAsync(EmailUnique)
+                .WithMessage("The specified email already exists.");
+
+            RuleFor(u => u.Name)
+                .MaximumLength(75).WithMessage("Max 75 characters.")
+                .NotEmpty().WithMessage("Name is required.");
+
+            RuleFor(u => u.LastName)
+                .MaximumLength(75).WithMessage("Max 75 characters.")
+                .NotEmpty().WithMessage("Last name is required.");
+
 
         }
 
         public async Task<bool> EmailUnique(string email, CancellationToken cancellationToken)
         {
             return await _context.Users
-                .AllAsync(u => u.Email != email,cancellationToken);
+                .AllAsync(u => u.Email != email, cancellationToken);
         }
 
     }

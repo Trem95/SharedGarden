@@ -1,13 +1,8 @@
 ﻿using Application.Common.Interfaces;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.Interaction.Users.Commands.Update
+namespace Application.Interaction.Users.Commands.UpdateUser
 {
     public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
     {
@@ -17,10 +12,20 @@ namespace Application.Interaction.Users.Commands.Update
         {
             _context = context;
 
+            _context = context;
             RuleFor(u => u.Email)
-                .NotEmpty().WithMessage("Email required")
-                .EmailAddress(FluentValidation.Validators.EmailValidationMode.AspNetCoreCompatible)
-                .MustAsync(EmailUnique).WithMessage("Email not available");
+                .MaximumLength(75).WithMessage("Max 75 characters.")
+                .NotEmpty().WithMessage("Email is required.")
+                .MustAsync(EmailUnique)
+                .WithMessage("The specified email already exists.");
+
+            RuleFor(u => u.Name)
+                .MaximumLength(75).WithMessage("Max 75 characters.")
+                .NotEmpty().WithMessage("Name is required.");
+
+            RuleFor(u => u.LastName)
+                .MaximumLength(75).WithMessage("Max 75 characters.")
+                .NotEmpty().WithMessage("Last name is required.");
         }
 
         public async Task<bool> EmailUnique(UpdateUserCommand model,string email, CancellationToken cancellationToken)

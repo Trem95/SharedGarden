@@ -10,24 +10,9 @@ namespace Domain.Entities
     [Table("Address")]
     public class Address
     {
-        //    private int id;
-
-        //    private int gardenId;
-
-        //    private string country;
-
-        //    private string postalCode;
-
-        //    private string city;
-
-        //    private string street;
-
-
         [PrimaryKey]
         [Column("Id")]
         public int Id { get; set; }
-        [Column("GardenId")]
-        public int GardenId { get; set; }
         [Column("Country")]
         public string Country { get; set; }
         [Column("PostalCode")]
@@ -36,7 +21,17 @@ namespace Domain.Entities
         public string City { get; set; }
         [Column("Street")]
         public string Street { get; set; }
+        [Column("IsDeleted")]
+        public bool IsDeleted { get; set; }
 
+        public Address()
+        {
+            Country = string.Empty;
+            PostalCode = string.Empty;
+            City = string.Empty;
+            Street = string.Empty;
+            Garden = new Garden();
+        }
 
         public Garden Garden;
     }

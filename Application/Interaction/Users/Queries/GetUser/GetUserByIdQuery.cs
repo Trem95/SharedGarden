@@ -4,19 +4,14 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Interaction.Users.Queries.GetUser
 {
-    public class GetUserByIdQuery : IRequest<UsersVm>
+    public class GetUserByIdQuery : IRequest<UserDTO>
     {
         public int Id { get; set; }
     }
-    public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UsersVm>
+    public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDTO>
     {
         private readonly IMapper _mapper;
         private readonly IApplicationDbContext _context;
@@ -26,14 +21,15 @@ namespace Application.Interaction.Users.Queries.GetUser
             _mapper = mapper;
         }
 
-        public async Task<UsersVm> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
+        public async Task<UserDTO> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            return new UsersVm
-            {
-                UserList = await _context.Users
+            UserDTO user = await _context.Users
                 .ProjectTo<UserDTO>(_mapper.ConfigurationProvider)
-                .Where(u => u.Id == request.Id).ToListAsync(cancellationToken)
-            };
+                .Where(u => u.Id == request.Id)
+                .Where(u => !u.IsDeleted)
+                .FirstAsync(cancellationToken);
+            return user;
+
         }
     }
 }

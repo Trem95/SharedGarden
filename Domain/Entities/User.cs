@@ -34,10 +34,20 @@ namespace Domain.Entities
         public string Email { get ; set ; }
         [Column("IsAdmin")]
         public bool IsAdmin { get ; set ; }
+        [Column("IsDeleted")]
+        public bool IsDeleted { get; set; }
 
+        public User()
+        {
+            Name = string.Empty;
+            LastName = string.Empty;
+            Email = string.Empty;
+            Gardens = new List<Garden>();
+            ReservationsAsClient = new List<Reservation>();
+        }
 
         public List<Garden> Gardens;
 
-        public List<Reservation> ReservationsAsClient;
+        public List<Reservation> ReservationsAsClient; 
     }
 }

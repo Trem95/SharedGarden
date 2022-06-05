@@ -1,6 +1,6 @@
-﻿using Application.Interaction.Users.Commands.Create;
-using Application.Interaction.Users.Commands.Update;
-using Application.Interaction.Users.Commands.Delete;
+﻿using Application.Interaction.Users.Commands.CreateUser;
+using Application.Interaction.Users.Commands.UpdateUser;
+using Application.Interaction.Users.Commands.DeleteUser;
 using Application.Interaction.Users.Queries.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Application.Interaction.Users.Queries.GetUser;
@@ -18,7 +18,7 @@ namespace SharedGarden.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<UsersVm>> Get(int id)
+        public async Task<ActionResult<UserDTO>> Get(int id)
         {
             return await Mediator.Send(new GetUserByIdQuery { Id = id});
         }

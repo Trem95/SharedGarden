@@ -18,8 +18,8 @@ namespace Application.Interaction.Reservations.Queries.DTO
         public int GardenId { get; set; }
         public int ClientId { get; set; }
         public DateTime ReservationDate { get; set; }
-        public int Price { get; set; }
-
+        public bool IsAcceptedByOwner { get; set; }
+        public bool IsDeleted { get; set; }
         public GardenDTO Garden { get; set; }
         public UserDTO User { get; set; }
         public void Mapping(Profile profile)

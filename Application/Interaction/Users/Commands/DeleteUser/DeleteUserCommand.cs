@@ -3,24 +3,19 @@ using Application.Common.Interfaces;
 using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.Interaction.Users.Commands.Delete
+namespace Application.Interaction.Users.Commands.DeleteUser
 {
     public class DeleteUserCommand : IRequest
     {
         public int Id { get; set; }
     }
 
-    public class DeleteUserCommandhandler : IRequestHandler<DeleteUserCommand>
+    public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand>
     {
         private readonly IApplicationDbContext _context;
 
-        public DeleteUserCommandhandler(IApplicationDbContext context)
+        public DeleteUserCommandHandler(IApplicationDbContext context)
         {
             _context = context;
         }

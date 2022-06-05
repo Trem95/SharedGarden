@@ -4,11 +4,6 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Interaction.Users.Queries.GetUser
 {
@@ -31,11 +26,10 @@ namespace Application.Interaction.Users.Queries.GetUser
             {
                 UserList = await _context.Users
                     .ProjectTo<UserDTO>(_mapper.ConfigurationProvider)
+                    .Where(u => !u.IsDeleted)
                     .OrderBy(u => u.Id)
                     .ToListAsync(cancellationToken)
             };
-
-            return null;
         }
     }
 
