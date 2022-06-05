@@ -10,34 +10,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Interaction.Users.Queries.GetUsers
+namespace Application.Interaction.Users.Queries.GetUser
 {
-    public class GetUsersQuery : IRequest<UsersVm>
+    public class GetUserByIdQuery : IRequest<UsersVm>
     {
-
+        public int Id { get; set; }
     }
-    public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, UsersVm>
+    public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UsersVm>
     {
         private readonly IMapper _mapper;
         private readonly IApplicationDbContext _context;
-        public GetUsersQueryHandler(IApplicationDbContext context, IMapper mapper)
+        public GetUserByIdQueryHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
-        public async Task<UsersVm> Handle(GetUsersQuery request, CancellationToken cancellationToken)
+
+        public async Task<UsersVm> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
             return new UsersVm
             {
                 UserList = await _context.Users
-                    .ProjectTo<UserDTO>(_mapper.ConfigurationProvider)
-                    .OrderBy(u => u.Id)
-                    .ToListAsync(cancellationToken)
+                .ProjectTo<UserDTO>(_mapper.ConfigurationProvider)
+                .Where(u => u.Id == request.Id).ToListAsync(cancellationToken)
             };
-
-            return null;
         }
     }
-
-
 }
+

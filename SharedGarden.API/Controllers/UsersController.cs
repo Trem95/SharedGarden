@@ -2,8 +2,8 @@
 using Application.Interaction.Users.Commands.Update;
 using Application.Interaction.Users.Commands.Delete;
 using Application.Interaction.Users.Queries.DTO;
-using Application.Interaction.Users.Queries.GetUsers;
 using Microsoft.AspNetCore.Mvc;
+using Application.Interaction.Users.Queries.GetUser;
 
 namespace SharedGarden.API.Controllers
 {
@@ -14,7 +14,13 @@ namespace SharedGarden.API.Controllers
         [HttpGet]
         public async Task<ActionResult<UsersVm>> Get()
         {
-            return await Mediator.Send(new GetUsersQuery());
+            return await Mediator.Send(new GetAllUsersQuery());
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UsersVm>> Get(int id)
+        {
+            return await Mediator.Send(new GetUserByIdQuery { Id = id});
         }
 
         [HttpPost]
