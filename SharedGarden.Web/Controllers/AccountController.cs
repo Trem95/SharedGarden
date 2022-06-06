@@ -28,5 +28,11 @@ namespace SharedGarden.Web.Controllers
 
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
+
+        [Authorize]
+        public IActionResult Claims()
+        {
+            return View();
+        }
     }
 }

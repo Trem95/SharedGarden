@@ -35,7 +35,6 @@ namespace SharedGarden.Web
                 options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 
-
             }).AddCookie()
             .AddOpenIdConnect("Auth0", options =>
             {
@@ -72,7 +71,6 @@ namespace SharedGarden.Web
                         return Task.CompletedTask;
                     }
                 };
-
             });
 
             services.AddControllersWithViews();
