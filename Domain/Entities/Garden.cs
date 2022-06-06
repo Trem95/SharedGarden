@@ -1,10 +1,4 @@
 ﻿using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Domain.Entities
 {
     [Table("Garden")]
@@ -30,16 +24,6 @@ namespace Domain.Entities
 
         [Column("IsDeleted")]
         public bool IsDeleted { get; set; }
-
-        //public Garden()
-        //{
-        //    Name = string.Empty;
-        //    Fire = string.Empty;
-        //    Shelter = string.Empty;
-        //    Description = string.Empty;
-        //    Owner = new User();
-        //    Address = new Address();
-        //}
 
         public User Owner;
         public Address Address;

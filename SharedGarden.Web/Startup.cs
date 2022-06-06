@@ -46,20 +46,21 @@ namespace SharedGarden.Web
                 options.Scope.Clear();
                 options.Scope.Add("openid");
                 options.Scope.Add("profile");
+                options.Scope.Add("read:messages");
                 options.CallbackPath = new PathString("/callback");
                 options.ClaimsIssuer = "Auth0";
                 options.SaveTokens = true;
 
                 options.Events = new OpenIdConnectEvents
                 {
-                    OnRedirectToIdentityProviderForSignOut = (context) => 
+                    OnRedirectToIdentityProviderForSignOut = (context) =>
                     {
                         var logoutUri = $"https://{Configuration["Auth0:Domain"]}/v2/logout?client_id={Configuration["Auth0:ClientId"]}";
 
                         var postLogoutUri = context.Properties.RedirectUri;
-                        if(!string.IsNullOrEmpty(postLogoutUri))
+                        if (!string.IsNullOrEmpty(postLogoutUri))
                         {
-                            if(postLogoutUri.StartsWith("/"))
+                            if (postLogoutUri.StartsWith("/"))
                             {
                                 var request = context.Request;
                                 postLogoutUri = request.Scheme + "://" + request.Host + request.PathBase + postLogoutUri;
@@ -69,6 +70,22 @@ namespace SharedGarden.Web
                         context.Response.Redirect(logoutUri);
                         context.HandleResponse();
                         return Task.CompletedTask;
+                    },
+
+                    OnRedirectToIdentityProvider = (context) =>
+                    {
+                        context.ProtocolMessage.SetParameter("audience", Configuration["Auth0:Audience"]);
+                        return Task.FromResult(0);
+                    },
+
+                    OnMessageReceived = (context) => 
+                    {
+                        if (context.ProtocolMessage.Error == "access_denied" )
+                        {
+                            context.HandleResponse();
+                            context.Response.Redirect("/Account/AccessDenied");
+                        }
+                        return Task.FromResult(0);
                     }
                 };
             });

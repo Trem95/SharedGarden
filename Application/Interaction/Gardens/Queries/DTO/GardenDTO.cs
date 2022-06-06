@@ -21,6 +21,7 @@ namespace Application.Interaction.Gardens.Queries.DTO
         public string Description { get; set; }
         public string Fire { get; set; }
         public string Shelter { get; set; }
+        public int Price { get; set; }
         public bool IsDeleted { get; set; }
 
         public UserDTO Owner { get; set; }

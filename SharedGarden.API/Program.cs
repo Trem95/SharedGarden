@@ -3,9 +3,18 @@ using FluentValidation.AspNetCore;
 using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using SharedGarden.API.Exceptions;
+using SharedGarden.API.Handler;
 
 var builder = WebApplication.CreateBuilder(args);
-ConfigurationManager configuration = builder.Configuration;
+IConfiguration configuration = builder.Configuration;
+
+//builder.WebHost.ConfigureKestrel(serverOptions =>
+//{
+//    serverOptions.ConfigureHttpsDefaults(listenOptions =>
+//    {
+        
+//    });
+//});
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -24,6 +33,12 @@ builder.Services.AddMvc(options =>
     options.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status401Unauthorized));
     options.ReturnHttpNotAcceptable = true;
 }).AddFluentValidation();
+
+var domain = $"https://{configuration["Auth0:Domain"]}/";
+builder.Services.AddAuthorization(options => 
+{
+    options.AddPolicy("read:messages", policy => policy.Requirements.Add(new HasScopeRequirement("read:messages", domain)));
+});
 
 builder.Services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
 

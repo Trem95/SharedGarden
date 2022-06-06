@@ -32,6 +32,7 @@ namespace SharedGarden.Web.Controllers
                     );
                 string idToken = await HttpContext.GetTokenAsync("id_token");
             }
+            Console.WriteLine(User);
             return View();
         }
 

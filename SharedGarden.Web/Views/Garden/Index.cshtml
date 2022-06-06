@@ -1,0 +1,53 @@
+﻿@using SharedGarden.Web.Controllers
+@using SharedGarden.Web.Models
+
+@{
+    Layout = "_Layout";
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <h3>Gardens</h3>
+                <table class="table d-xl-table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Address
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Fire
+                            </th>
+                            <th>
+                                Shelter
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @{
+                            @foreach (GardenModel garden in ViewBag.Message)
+                            {
+                                <tr>
+                                    <td>@garden.Name</td>
+                                    <td>@garden.Address.Country @garden.Address.City @garden.Address.Street  </td>
+                                    <td>@garden.Description</td>
+                                    <td>@garden.Fire</td>
+                                    <td>@garden.Shelter</td>
+                                    <td>@garden.Price</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
