@@ -18,15 +18,11 @@ namespace Infrastructure.Persistence
         public Microsoft.EntityFrameworkCore.DbSet<Garden> Gardens { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<Reservation> Reservations { get; set; }
 
-        public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base()
+        public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
         {
 
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
-        {
-            optionBuilder.UseSqlServer(@"Data Source=LAPTOP-39S56KLD\SQL_ATR;Initial Catalog=SharedGardenDB;Persist Security Info=True;User ID=sa;Password=280715");
-        }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             return base.SaveChangesAsync(cancellationToken);

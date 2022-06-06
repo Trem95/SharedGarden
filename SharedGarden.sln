@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedGarden.API", "SharedGarden.API\SharedGarden.API.csproj", "{8AB36B92-5129-43CE-92D4-47619ADF0F28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedGarden.API", "SharedGarden.API\SharedGarden.API.csproj", "{8AB36B92-5129-43CE-92D4-47619ADF0F28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{B0F2BF91-628E-4BDD-8FD6-68D60109D610}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{B0F2BF91-628E-4BDD-8FD6-68D60109D610}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{9301DB6A-CF84-49E2-81C1-D062FF7CB225}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{9301DB6A-CF84-49E2-81C1-D062FF7CB225}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{B11DC3E6-0821-4293-8DB7-17C65444C3FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{B11DC3E6-0821-4293-8DB7-17C65444C3FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedGarden.Web", "SharedGarden.Web\SharedGarden.Web.csproj", "{E6A88E5F-49C8-4219-8551-19B1A453ABB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{B11DC3E6-0821-4293-8DB7-17C65444C3FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B11DC3E6-0821-4293-8DB7-17C65444C3FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B11DC3E6-0821-4293-8DB7-17C65444C3FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6A88E5F-49C8-4219-8551-19B1A453ABB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6A88E5F-49C8-4219-8551-19B1A453ABB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6A88E5F-49C8-4219-8551-19B1A453ABB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6A88E5F-49C8-4219-8551-19B1A453ABB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
