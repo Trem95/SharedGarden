@@ -30,4 +30,22 @@
             </table>
         </div>
     </div>
+    <div id="googleMap" style="height:400px;width:100%">
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnPczCiYLzHf8Fqgs_npGqwHm6KWmUiMw"></script>
+    <script>
+        function InitializeMap()
+        {
+            var latlng = new google.map.LatLng(-34.397, 150.644);
+            var myOptions =
+            {
+                zoom : 8,
+                center : latlng,
+                mapTypeId : google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("googleMap"), myOptions);
+        }
+        window.onLoad = InitializeMap;
+    </script>
 }

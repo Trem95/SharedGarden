@@ -1,8 +1,37 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-}
 
+}
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1>Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<div id="map" style="height:400px;width:100%">
+</div>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnPczCiYLzHf8Fqgs_npGqwHm6KWmUiMw"></script>
+
+<script>
+    var address = "Belgique";
+    var geocoder = new google.maps.Geocoder();
+    var myOptions = {
+        zoom: 8,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+    geocoder.geocode({ 'address': address }, function (results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+
+    }
+    else {
+        alert("Geocode was not successful for the following reason: " + status);
+    }
+
+});
+</script>

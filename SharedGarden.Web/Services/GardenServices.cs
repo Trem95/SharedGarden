@@ -23,5 +23,19 @@ namespace SharedGarden.Web.Services
                 return listGarden.GardenList;
             }
         }
+
+        public static GardenModel GetGardenById(int id)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseAddress);
+                HttpResponseMessage httpResponseMessage = client.GetAsync($"Gardens/{id}").Result;
+                httpResponseMessage.EnsureSuccessStatusCode();
+                string json = httpResponseMessage.Content.ReadAsStringAsync().Result;
+                GardenModel garden = JsonConvert.DeserializeObject<GardenModel>(json);
+
+                return garden;
+            }
+        }
     }
 }

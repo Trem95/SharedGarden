@@ -8,13 +8,6 @@ using SharedGarden.API.Handler;
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = builder.Configuration;
 
-//builder.WebHost.ConfigureKestrel(serverOptions =>
-//{
-//    serverOptions.ConfigureHttpsDefaults(listenOptions =>
-//    {
-        
-//    });
-//});
 // Add services to the container.
 
 builder.Services.AddControllers();
