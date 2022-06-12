@@ -23,6 +23,12 @@ namespace SharedGarden.API.Controllers
             return await Mediator.Send(new GetUserByIdQuery { Id = id});
         }
 
+        [HttpGet("{email}")]
+        public async Task<ActionResult<UserDTO>> Get(string email)
+        {
+            return await Mediator.Send(new GetUserByEmailQuery { Email = email });
+        }
+
         [HttpPost]
         public async Task<ActionResult<int>> Create(CreateUserCommand command)
         {

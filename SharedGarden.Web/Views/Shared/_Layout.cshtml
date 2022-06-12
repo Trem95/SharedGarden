@@ -24,12 +24,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="home" asp-action="privacy">Privacy</a>
                         </li>
-                        @*@if(User.Identity.IsAuthenticated)
-                        {*@
+                        @if (User.Identity.IsAuthenticated)
+                        {
                             <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Garden" asp-action="index">Gardens</a>
-                        </li>
-                        @*}*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Garden" asp-action="index">Gardens</a>
+                            </li>
+                        }
                         <li 
                         class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Claims">Claims</a>

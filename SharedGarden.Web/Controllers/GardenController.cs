@@ -20,6 +20,8 @@ namespace SharedGarden.Web.Controllers
         {
             GardenModel garden = GardenServices.GetGardenById(id);
             ViewBag.Garden = garden;
+            string address = garden.Address.Country + " " + garden.Address.PostalCode + " " + garden.Address.City + " " + garden.Address.Street;
+            ViewBag.GardenAddress = address.Replace("\'"," ") ;
             return View();
         }
 

@@ -6,56 +6,66 @@
     @ViewBag.Garden.Name
 </h1>
 <br />
-<h5>Localisation :</h5>
+<h5>Localisation:</h5>
+<input type="hidden" id="gardenAddress" data-myValue="@ViewBag.GardenAddress"/>
 <div id="googleMap" style="height:400px;width:100%">
 </div>
-@*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnPczCiYLzHf8Fqgs_npGqwHm6KWmUiMw"></script>*@
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnPczCiYLzHf8Fqgs_npGqwHm6KWmUiMw"></script>
 
-<script>
-       function InitializeMap()
-        {
-            var latlng = new google.maps.LatLng(-34.397, 150.644);
-            var myOptions =
-            {
-                zoom : 8,
-                center : latlng,
-                mapTypeId : google.maps.MapTypeId.ROADMAP
-            };
-            var map = new google.maps.Map(document.getElementById("googleMap"), myOptions);
-        }
-        window.onload = InitializeMap;
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqEb7hWAd3ua-qa_0ulHHeQFgCpYA6AEQ&callback=initMap"></script>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script type="text/javascript">
+    var address = $("#gardenAddress").data("myValue");
+    console.log(address);
+    var geocoder = new google.maps.Geocoder();
+
+    var myOptions = {
+        zoom: 19,
+        mapTypeId: google.maps.MapTypeId.SATELLITE
+    };
+    map = new google.maps.Map(document.getElementById("googleMap"), myOptions);
+
+    geocoder.geocode({ 'address': address }, function initMap(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+
+    }
+    else {
+        alert("Geocode was not successful for the following reason: " + status);
+    }
+
+});
 </script>
-
-@*<script type="text/javascript">
-    var geocoder = new google.maps.Geocoder({'address':address})
-    var map = new google.maps.Map(document.getElementById("googleMap"))
-    function gardenMap(results,status)
-    {
-    if(status == google.maps.GeocoderStatus.OK)
-    {
-    map.setCenter(results[0].geometry.location);
-    var marker = new google.maps.Marker(
-    {
-    map:map,
-    position : results[0].geometry.location
-    })
-    }
-    else
-    {
-    alert("Geocode was not successful for the following reason "+ status)
-    }
-    alert(map)
-    //var myCenter = new google.maps.Geocoder({'address': address});
-    //var mapProp = { zoom: 12, scrollwheel: false, draggable: true, mapTypeId: google.maps.MapTypeId.ROADMAP };
-    //var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-    //var marker = new google.maps.Marker();
-    //marker.setMap(map);
-    }
-    </script>*@
 <br />
 <h5>Description :</h5>
 <p>
     @ViewBag.Garden.Description
 </p>
 
+<h5>Fire / BBQ:</h5>
+<p>
+    @ViewBag.Garden.Fire
+</p>
+
+<h5>Shelter:</h5>
+<p>
+    @ViewBag.Garden.Shelter
+</p>
+
+<h5>Owner informations:</h5>
+<h6>Last name :</h6>
+<p>
+    @ViewBag.Garden.Owner.LastName
+</p>
+<h6>Name:</h6>
+<p>
+    @ViewBag.Garden.Owner.Name
+</p>
+<h6>Email :</h6>
+<p>
+    @ViewBag.Garden.Owner.Email
+</p>
