@@ -1,6 +1,7 @@
 using Application;
 using FluentValidation.AspNetCore;
 using Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using SharedGarden.API.Exceptions;
 using SharedGarden.API.Handler;
@@ -18,6 +19,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(configuration);
 
+var domain = $"https://{configuration["Auth0:Domain"]}/";
+
 builder.Services.AddMvc(options =>
 {
     options.Filters.Add(new ApiExceptionFilterAttribute());
@@ -27,7 +30,16 @@ builder.Services.AddMvc(options =>
     options.ReturnHttpNotAcceptable = true;
 }).AddFluentValidation();
 
-var domain = $"https://{configuration["Auth0:Domain"]}/";
+builder.Services.AddAuthentication(options => 
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.Authority = domain;
+    options.Audience = configuration["Auth0:Audience"];
+});
+
 builder.Services.AddAuthorization(options => 
 {
     options.AddPolicy("read:messages", policy => policy.Requirements.Add(new HasScopeRequirement("read:messages", domain)));

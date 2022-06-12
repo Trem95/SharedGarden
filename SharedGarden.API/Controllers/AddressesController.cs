@@ -4,6 +4,7 @@ using Application.Interaction.Addresses.Commands.DeleteAddress;
 using Application.Interaction.Addresses.Queries.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Application.Interaction.Addresses.Queries.GetAddress;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SharedGarden.API.Controllers
 {
@@ -12,6 +13,7 @@ namespace SharedGarden.API.Controllers
     public class AddressesController : ApiController
     {
         [HttpGet]
+        [Authorize("read:messages")]
         public async Task<ActionResult<AddressesVm>> Get()
         {
             return await Mediator.Send(new GetAllAddressesQuery());

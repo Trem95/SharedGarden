@@ -4,6 +4,7 @@ using Application.Interaction.Gardens.Commands.DeleteGarden;
 using Application.Interaction.Gardens.Queries.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Application.Interaction.Gardens.Queries.GetGarden;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SharedGarden.API.Controllers
 {
@@ -12,6 +13,7 @@ namespace SharedGarden.API.Controllers
     public class GardensController : ApiController
     {
         [HttpGet]
+        [Authorize("read:messages")]
         public async Task<ActionResult<GardensVm>> Get()
         {
             return await Mediator.Send(new GetAllGardensQuery());
