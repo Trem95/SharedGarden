@@ -18,7 +18,7 @@ namespace SharedGarden.Web.Controllers
             await HttpContext.ChallengeAsync("Auth0", new AuthenticationProperties() { RedirectUri = returnUrl });
         }
 
-        [Authorize]
+       
         public async Task Logout()
         {
             await HttpContext.SignOutAsync("Auth0", new AuthenticationProperties
@@ -28,6 +28,13 @@ namespace SharedGarden.Web.Controllers
 
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
+
+        public IActionResult SignIn()
+        {
+            return View();
+        }
+
+
 
         [Authorize]
         public IActionResult Claims()

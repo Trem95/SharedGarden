@@ -13,7 +13,7 @@ namespace SharedGarden.API.Controllers
     public class GardensController : ApiController
     {
         [HttpGet]
-        [Authorize("read:messages")]
+        //[Authorize("read:messages")]
         public async Task<ActionResult<GardensVm>> Get()
         {
             return await Mediator.Send(new GetAllGardensQuery());

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SharedGarden.Web.Models;
+using SharedGarden.Web.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -31,8 +32,13 @@ namespace SharedGarden.Web.Controllers
                     DateTimeStyles.RoundtripKind
                     );
                 string idToken = await HttpContext.GetTokenAsync("id_token");
+                
+                Console.WriteLine(User);
+                Console.WriteLine();
+                List<System.Security.Claims.Claim> list = User.Claims.ToList();
+                UserModel userMod = UserServices.GetUserByEmail(list[1].ToString().Replace("name: ", String.Empty));
             }
-            Console.WriteLine(User);
+            
             return View();
         }
 

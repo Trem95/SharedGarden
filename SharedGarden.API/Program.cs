@@ -30,7 +30,7 @@ builder.Services.AddMvc(options =>
     options.ReturnHttpNotAcceptable = true;
 }).AddFluentValidation();
 
-builder.Services.AddAuthentication(options => 
+builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
