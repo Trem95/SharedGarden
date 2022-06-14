@@ -2,11 +2,67 @@
 @using SharedGarden.Web.Models
 
 @{
+
     Layout = "_Layout";
     <div class="container">
         <div class="row">
-            <div class="col-xl-12">
-                <h3>Gardens</h3>
+            <div class="col-xl-12" style="width:100%">
+                @if (ViewBag.UserGardenList.Count > 0)
+                {
+                    @if (ViewBag.UserGardenList.Count > 1)
+                    {
+                        <h3>My Gardens</h3>
+                    }
+                    else
+                    {
+                        <h3>My Garden</h3>
+                    }
+                    <table class="table d-xl-table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Address
+                                </th>
+                                <th>
+                                    Description
+                                </th>
+                                <th>
+                                    Fire
+                                </th>
+                                <th>
+                                    Shelter
+                                </th>
+                                <th>
+                                    Price
+                                </th>
+                                <th>
+                                    Details
+                                </th>
+                                <th><button class="btn-outline-success" onclick="location.href='@Url.Action($"AddGarden", "Garden")'">Details</button></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (GardenModel garden in ViewBag.UserGardenList)
+                            {
+                                <tr>
+                                    <td>@garden.Name</td>
+                                    <td>@garden.Address.Country @garden.Address.City @garden.Address.Street  </td>
+                                    <td>@garden.Description</td>
+                                    <td>@garden.Fire</td>
+                                    <td>@garden.Shelter</td>
+                                    <td>@garden.Price</td>
+                                    <td><button class="btn-primary" onclick="location.href='@Url.Action($"Details", "Garden", new{id = garden.Id})'">Details</button></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                <div class="container" style="width:max-content;height:10px"></div>
+                <h3>All Shared Gardens</h3>
                 <table class="table d-xl-table table-striped">
                     <thead>
                         <tr>
@@ -34,7 +90,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (GardenModel garden in ViewBag.Message)
+                        @foreach (GardenModel garden in ViewBag.AllGardensList)
                         {
                             <tr>
                                 <td>@garden.Name</td>
@@ -43,7 +99,7 @@
                                 <td>@garden.Fire</td>
                                 <td>@garden.Shelter</td>
                                 <td>@garden.Price</td>
-                                <td><button class="btn-primary" onclick="location.href='@Url.Action($"GardenDetails", "Garden", new{id = garden.Id})'" >Details</button></td>
+                                <td><button class="btn-primary" onclick="location.href='@Url.Action($"GardenDetails", "Garden", new{id = garden.Id})'">Details</button></td>
                             </tr>
                         }
                     </tbody>

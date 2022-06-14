@@ -37,5 +37,20 @@ namespace SharedGarden.Web.Services
                 return garden;
             }
         }
+
+        public static IList<GardenModel> GetGardenByUserId(int id)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseAddress);
+                HttpResponseMessage httpResponseMessage = client.GetAsync($"Gardens/UserId/{id}").Result;
+                httpResponseMessage.EnsureSuccessStatusCode();
+                string json = httpResponseMessage.Content.ReadAsStringAsync().Result;
+                GardenModelsVm listGarden = JsonConvert.DeserializeObject<GardenModelsVm>(json);
+
+                return listGarden.GardenList;
+            }
+        }
+
     }
 }

@@ -15,10 +15,12 @@ namespace SharedGarden.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
+        private GardenController GardenController;
+        private UserModel currentUser = new UserModel { Id = -1 };
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            GardenController.delegateGetCurrentUser = GetCurrentUser;
         }
 
         public async Task<IActionResult> Index()
@@ -32,16 +34,19 @@ namespace SharedGarden.Web.Controllers
                     DateTimeStyles.RoundtripKind
                     );
                 string idToken = await HttpContext.GetTokenAsync("id_token");
-                
-                Console.WriteLine(User);
-                Console.WriteLine();
+
                 List<System.Security.Claims.Claim> list = User.Claims.ToList();
-                UserModel userMod = UserServices.GetUserByEmail(list[1].ToString().Replace("name: ", String.Empty));
+                currentUser = UserServices.GetUserByEmail(list[1].ToString().Replace("name: ", String.Empty));
             }
-            
+            else
+                currentUser = new UserModel { Id = -1 };
+
             return View();
         }
-
+        public int GetData()
+        {
+            return currentUser.Id;
+        }
         public IActionResult Privacy()
         {
             return View();
@@ -51,6 +56,11 @@ namespace SharedGarden.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private UserModel GetCurrentUser()
+        {
+            return currentUser;
         }
     }
 }

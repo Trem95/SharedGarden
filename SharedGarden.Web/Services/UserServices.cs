@@ -14,12 +14,23 @@ namespace SharedGarden.Web.Services
         {
             using (HttpClient client = new HttpClient())
             {
+                UserModel userModel;
                 client.BaseAddress = new Uri(baseAddress);
-                HttpResponseMessage httpResponseMessage = client.GetAsync($"Users/ByMail/{email}").Result;
-                httpResponseMessage.EnsureSuccessStatusCode();
-                string json = httpResponseMessage.Content.ReadAsStringAsync().Result;
+                HttpResponseMessage httpResponseMessage = client.GetAsync($"Users/Login/{email}").Result;
+                try
+                {
+                    httpResponseMessage.EnsureSuccessStatusCode();
+                    string json = httpResponseMessage.Content.ReadAsStringAsync().Result;
+                    userModel = JsonConvert.DeserializeObject<UserModel>(json);
 
-                UserModel userModel = JsonConvert.DeserializeObject<UserModel>(json);
+                }
+                catch (Exception)
+                {
+                    return new UserModel
+                    {
+                        Id = -1
+                    };
+                }
 
                 return userModel;
             }

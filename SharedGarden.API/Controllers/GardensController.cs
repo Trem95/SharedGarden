@@ -25,6 +25,13 @@ namespace SharedGarden.API.Controllers
             return await Mediator.Send(new GetGardenByIdQuery { Id = id });
         }
 
+        [HttpGet("UserId/{id}")]
+        public async Task<ActionResult<GardensVm>> GetByUserId(int id)
+        {
+            return await Mediator.Send(new GetGardensByUserIdQuery { UserID = id });
+        }
+
+
         [HttpPost]
         public async Task<ActionResult<int>> Create(CreateGardenCommand command)
         {
