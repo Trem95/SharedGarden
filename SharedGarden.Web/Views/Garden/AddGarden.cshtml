@@ -4,3 +4,96 @@
 @{
 
 }
+<div class="container">
+    <div class="row">
+        <div class="col-xl-12" style="width:100%">
+            <h1>Create a new garden</h1>
+
+            <h2>Name :</h2>
+            <small id="gardenNameHelp" class="form-text text-muted">A small description in two three words.</small>
+            <input class="form-control" type="text" placeholder="ex: Nivelles pond garden, ...'" id="gardenName">
+
+            <h2>Address: </h2>
+            <h4>Country</h4>
+            <input class="form-control" type="text" placeholder="" id="AddressCountry">
+
+            <h4>Postal Code: </h4>
+            <input class="form-control" type="text" placeholder="" id="AddressPostalCode">
+
+            <h4>City: </h4>
+            <input class="form-control" type="text" placeholder="" id="AddressCity">
+
+            <h4>Street: </h4>
+            <input class="form-control" type="text" placeholder="ex : potier street 3 " id="AddressStreet">
+
+
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqEb7hWAd3ua-qa_0ulHHeQFgCpYA6AEQ&"></script>
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+
+
+            <div class="container" style="width:max-content;height:9px"></div>
+            <div class="container" style="width:max-content;height:9px"></div>
+            <div id="googleMap" style="height:400px;width:100%" onload="initMap"></div>
+            <script language="javascript" type="text/javascript">
+                var address = "France Var 83570 Entrecasteaux Chemin des collés";
+                    console.log(address);
+                    var geocoder = new google.maps.Geocoder();
+                    var myOptions = {
+                        zoom: 19,
+                        mapTypeId: google.maps.MapTypeId.SATELLITE
+                    };
+                    map = new google.maps.Map(document.getElementById("googleMap"), myOptions);
+
+                    geocoder.geocode({ 'address': address }, function initMap(results, status) {
+                        if (status == google.maps.GeocoderStatus.OK)
+                        {
+                            map.setCenter(results[0].geometry.location);
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: results[0].geometry.location
+                            });
+                        }
+                    });
+            </script>
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+            <script language="javascript" type="text/javascript">
+
+                    function localizeGarden(){
+                        var address = document.getElementById("AddressCountry").value +" "+ document.getElementById("AddressPostalCode").value +" "+document.getElementById("AddressCity").value+ " " +document.getElementById("AddressStreet").value
+                        console.log(document.getElementById("AddressCountry").value)
+                        console.log(document.getElementById("AddressPostalCode").value)
+                        console.log(document.getElementById("AddressCity").value)
+                        console.log(document.getElementById("AddressStreet").value)
+                        //address.concat(document.getElementById("AddressCountry").value,document.getElementById("AddressPostalCode").value),document.getElementById("AddressCity").value,document.getElementById("AddressStreet").value);
+                        console.log(address)
+                        map = new google.maps.Map(document.getElementById("googleMap"), myOptions);
+
+                        geocoder = new google.maps.Geocoder();
+                        geocoder.geocode({ 'address': address }, function (results, status){
+                            if (status == google.maps.GeocoderStatus.OK){
+                                map.setCenter(results[0].geometry.location);
+                                var marker = new google.maps.Marker({
+                                    map: map,
+                                    position: results[0].geometry.location
+                                });
+                            }
+                            else{
+                                alert("Unable to locate the garden, make sure not to include special characters in the various fields.");
+                            }
+                        });
+                    }
+                    function BtnMap_onclick(){
+                        localizeGarden();
+                    }
+
+            </script>
+            <button id="btnMap" class="btn-outline-primary" onclick="return BtnMap_onclick()">Show on map</button>
+
+            <h2>Description:</h2>
+            <small id="gardenNameHelp" class="form-text text-muted">An explicit description of available space and other availabilities not featured below.</small>
+            <textarea class="form-control" id="gardenDescription" rows="3"></textarea>
+
+
+        </div>
+    </div>
+</div>

@@ -13,11 +13,19 @@
                     {
                     
 
-                        <h3>My Gardens </h3><button  class="btn-outline-success flex-sm-row-reverse" onclick="location.href='@Url.Action($"AddGarden", "Garden")'">Add Garden</button>
+                        <h3>My Gardens </h3>
+                        <div class="container" style="width:max-content;height:15px"></div>
+                        <button  class="btn-outline-success flex-sm-row-reverse" onclick="location.href='@Url.Action($"AddGarden", "Garden")'">Add Garden</button>
+                        <div class="container" style="width:max-content;height:9px"></div>
+
                     }
                     else
                     {
-                        <h3>My Garden </h3> <button  class="btn-outline-success flex-sm-row-reverse" onclick="location.href='@Url.Action($"AddGarden", "Garden")'">Add Garden</button>
+                        <h3>My Garden </h3> 
+                        <div class="container" style="width:max-content;height:15px"></div>
+                        <button  class="btn-outline-success flex-sm-row-reverse" onclick="location.href='@Url.Action($"AddGarden", "Garden")'">Add Garden</button>
+                        <div class="container" style="width:max-content;height:9px"></div>
+
                     }
                     <table class="table d-xl-table table-striped">
                         <thead>
@@ -62,7 +70,7 @@
                         </tbody>
                     </table>
                 }
-                <div class="container" style="width:max-content;height:10px"></div>
+                <div class="container" style="width:max-content;height:25px"></div>
                 <h3>All Shared Gardens</h3>
                 <table class="table d-xl-table table-striped">
                     <thead>
