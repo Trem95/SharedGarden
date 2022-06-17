@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.JSInterop;
 using Microsoft.AspNetCore.Mvc;
 using SharedGarden.Web.Models;
 using SharedGarden.Web.Services;
+using System;
 using System.Collections.Generic;
+using System.Text.Encodings.Web;
 
 namespace SharedGarden.Web.Controllers
 {
@@ -35,11 +38,21 @@ namespace SharedGarden.Web.Controllers
             return View();
         }
 
+
+        #region AddGarden
+
         [Authorize]
         public IActionResult AddGarden()
         {
             return View();
         }
+        public void btnSave_Click(string url )
+        {
+            Console.WriteLine(ViewBag);
+        }
+        #endregion
+
+
 
     }
 }
