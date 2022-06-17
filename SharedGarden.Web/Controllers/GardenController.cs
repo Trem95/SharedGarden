@@ -6,6 +6,7 @@ using SharedGarden.Web.Services;
 using System;
 using System.Collections.Generic;
 using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace SharedGarden.Web.Controllers
 {
@@ -46,9 +47,10 @@ namespace SharedGarden.Web.Controllers
         {
             return View();
         }
-        public void btnSave_Click(string url )
+        
+        public static void Test(string? result)
         {
-            Console.WriteLine(ViewBag);
+            Console.WriteLine(result);
         }
         #endregion
 

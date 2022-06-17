@@ -1,36 +1,33 @@
 ﻿@using SharedGarden.Web.Business;
 @using SharedGarden.Web.Controllers;
 @using Microsoft.AspNetCore;
-@using Microsoft.JSInterop;
-@inject IJSRuntime JS;
 @model SharedGarden.Web.Models.GardenModel;
-@{
+@*@{
     ViewBag.Garden = new GardenModel
-            {
-                Name = string.Empty,
-                Address = new AddressModel
-                {
-                    Country = string.Empty,
-                    PostalCode = string.Empty,
-                    City = string.Empty,
-                    Street = string.Empty,
-                    IsDeleted = false
-                },
-                Description = string.Empty,
-                Fire = string.Empty,
-                Shelter = string.Empty,
-                Owner = GardenController.delegateGetCurrentUser.Invoke(),
-                OwnerId = GardenController.delegateGetCurrentUser.Invoke().Id,
-                AddressId = 0,
-                Price = 0,
-                IsDeleted = false,
-                Reservations = new List<ReservationModel>()
-            };
-}
+    {
+    Name = string.Empty,
+    Address = new AddressModel
+    {
+    Country = string.Empty,
+    PostalCode = string.Empty,
+    City = string.Empty,
+    Street = string.Empty,
+    IsDeleted = false
+    },
+    Description = string.Empty,
+    Fire = string.Empty,
+    Shelter = string.Empty,
+    Owner = GardenController.delegateGetCurrentUser.Invoke(),
+    OwnerId = GardenController.delegateGetCurrentUser.Invoke().Id,
+    AddressId = 0,
+    Price = 0,
+    IsDeleted = false,
+    Reservations = new List<ReservationModel>()
+    };
+    }*@
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
     <body runat="server">
 
         <div class="container">
@@ -39,7 +36,7 @@
                     <h1>Create a new garden</h1>
                     <h2>Name :</h2>
                     <small id="gardenNameHelp" class="form-text text-muted">A small description in two three words.</small>
-                    <input class="form-control" type="text" name="Name" placeholder="ex: Nivelles pond garden, ...'" id="gardenName" runat="server">
+                    <input class ="form-control" type="text" name="Name" placeholder="ex: Nivelles pond garden, ...'" id="gardenName">
                     <div class="container" style="width:max-content;height:5px"></div>
 
                     <h2>Address: </h2>
@@ -48,15 +45,15 @@
                     <div class="container" style="width:max-content;height:5px"></div>
 
                     <h5>Postal Code: </h5>
-                    <input class="form-control" type="text" name="PostalCode" placeholder="" id="AddressPostalCode" value="@ViewBag.Garden.Address.PostalCode">
+                    <input class="form-control" type="text" name="PostalCode" placeholder="" id="AddressPostalCode" >
                     <div class="container" style="width:max-content;height:5px"></div>
 
                     <h5>City: </h5>
-                    <input class="form-control" type="text" name="City" placeholder="" id="AddressCity" value="@ViewBag.Garden.Address.City">
+                    <input class="form-control" type="text" name="City" placeholder="" id="AddressCity">
                     <div class="container" style="width:max-content;height:5px"></div>
 
                     <h5>Street: </h5>
-                    <input class="form-control" type="text" name="Street" placeholder="ex : potier street 3 " id="AddressStreet" value="@ViewBag.Garden.Address.Street">
+                    <input class="form-control" type="text" name="Street" placeholder="ex : potier street 3 " id="AddressStreet">
                     <div class="container" style="width:max-content;height:5px"></div>
 
                     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqEb7hWAd3ua-qa_0ulHHeQFgCpYA6AEQ&"></script>
@@ -115,9 +112,8 @@
                         function BtnMap_onclick(){
                             localizeGarden();
                         }
-
                         function GetValues(){
-                            <% GetGardensValues(); %>
+                            return document.getElementById("gardeName").value
                         }
 
                     </script>
@@ -133,24 +129,17 @@
 
                     <h2>Fire:</h2>
                     <small id="gardenFireHelp" class="form-text text-muted">Is there a possibility to do fire ? If yes, what equipment can you put a dispotion to the others.</small>
-                    <textarea class="form-control" name="Fire" maxlength="100" id="gardenFIre" rows="2" ></textarea>
+                    <textarea class="form-control" name="Fire" maxlength="100" id="gardenFIre" rows="2"></textarea>
                     <div class="container" style="width:max-content;height:5px"></div>
 
                     <h2>Shelter:</h2>
                     <textarea class="form-control" id="gardenShelter" name="Shelter" maxlength="100" rows="2"></textarea>
                     <div class="container" style="width:max-content;height:5px"></div>
 
-                    <button class="btn-outline-success flex-sm-row-reverse" onClick=" return GetValues()" > Save Garden</button>
-                    @functions{
-                        private async Task GetGardensValues()
-                        {
-                            string? result = await JS.InvokeAsync<string>("gardenName");
-                            Console.Write(result); 
-                        }
-                    }
-
+                @*<button class="btn-outline-success flex-sm-row-reverse" onclick="location.href='@Url.Action($"TestSave", "Garden")'"> Save Garden </button>*@
+                    <button class="btn-outline-success flex-sm-row-reverse" onclick=""> Save Garden </button>
+                    <div id="divResult"></div>
                 </div>
             </div>
         </div>
     </body>
-}
