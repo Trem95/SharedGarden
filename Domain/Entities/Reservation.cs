@@ -20,10 +20,10 @@ namespace Domain.Entities
         [Column("ReservationDate")]
         public DateTime ReservationDate { get; set; }
 
-        [Column("IsCompleted")]
-        public bool IsCompleted{ get; set; }
         [Column("IsAcceptedByOwner")]
         public bool IsAcceptedByOwner { get; set; }
+        [Column("IsCompleted")]
+        public bool IsCompleted{ get; set; }
 
         //public Reservation()
         //{

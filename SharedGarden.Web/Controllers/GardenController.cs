@@ -30,7 +30,7 @@ namespace SharedGarden.Web.Controllers
             return this.View();
         }
         [Authorize]
-        public IActionResult Details(int id)
+        public IActionResult GardenDetails(int id)
         {
             GardenModel garden = GardenServices.GetGardenById(id);
             ViewBag.Garden = garden;

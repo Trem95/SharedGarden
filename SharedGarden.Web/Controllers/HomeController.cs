@@ -21,6 +21,7 @@ namespace SharedGarden.Web.Controllers
         {
             _logger = logger;
             GardenController.delegateGetCurrentUser = GetCurrentUser;
+            ReservationController.delegateGetCurrentUser = GetCurrentUser;
         }
 
         public async Task<IActionResult> Index()

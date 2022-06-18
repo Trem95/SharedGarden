@@ -25,14 +25,16 @@ namespace Application.Interaction.Gardens.Queries.GetGarden
 
         public async Task<GardensVm> Handle(GetAllGardensQuery request, CancellationToken cancellationToken) 
         {
-            return new GardensVm
+            GardensVm garden =  new GardensVm
             {
                 GardenList = await _context.Gardens
                 .ProjectTo<GardenDTO>(_mapper.ConfigurationProvider)
-                    .Where(u => !u.IsDeleted)
-                    .OrderBy(u => u.Id)
+                    .Where(g => !g.IsDeleted && !g.Owner.IsDeleted)
+                    .OrderBy(g => g.Id)
                     .ToListAsync(cancellationToken)
             };
+            Console.WriteLine(garden);
+            return garden;
         } 
     }
 }

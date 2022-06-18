@@ -1,0 +1,114 @@
+﻿@using SharedGarden.Web.Controllers
+@using SharedGarden.Web.Models
+
+@{
+
+    Layout = "_Layout";
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12" style="width:100%">
+                @if (ViewBag.ReservationAsClient.Count > 0 || ViewBag.ReservationAsOwner.Count > 0)
+                {
+                    @if (ViewBag.ReservationAsOwner.Count > 0)
+                    {
+
+                        <h3>Reservations as Owner </h3>
+                        <div class="container" style="width:max-content;height:15px"></div>
+
+                        <table class="table d-xl-table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Client name
+                                    </th>
+                                    <th>
+                                        Garden name
+                                    </th>
+                                    <th>
+                                        Date
+                                    </th>
+                                    <th>
+                                        Accepted by owner
+                                    </th>
+                                    <th>
+                                        Options
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (ReservationModel res in ViewBag.ReservationAsOwner)
+                                {
+                                    <tr>
+                                        <td>@res.Client.Name</td>
+                                        <td>@res.Garden.Name  </td>
+                                        <td>@res.ReservationDate</td>
+                                        @if (res.IsAcceptedByOwner)
+                                        {
+                                            <td>Yes</td>
+                                            <td><button class="btn-primary">Cancel Reservation</button></td>
+                                        }
+                                        else
+                                        {
+                                            <td>No</td>
+                                            <td><button class="btn-primary">Accept Reservation</button></td>
+
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    @if (ViewBag.ReservationAsClient.Count > 0)
+                    {
+
+                        <h3>Reservations as Client</h3>
+                        <div class="container" style="width:max-content;height:15px"></div>
+
+                        <table class="table d-xl-table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Client name
+                                    </th>
+                                    <th>
+                                        Garden name
+                                    </th>
+                                    <th>
+                                        Date
+                                    </th>
+                                    <th>
+                                        Accepted by owner
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (ReservationModel res in ViewBag.ReservationAsClient)
+                                {
+                                    <tr>
+                                        <td>@res.Client.Name</td>
+                                        <td>@res.Garden.Name  </td>
+                                        <td>@res.ReservationDate</td>
+                                        @if (res.IsAcceptedByOwner)
+                                        {
+                                            <td>Yes</td>
+                                        }
+                                        else
+                                        {
+                                            <td>No</td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                }else
+                {
+                    <h1>No Reservations</h1>
+                    <p>Wait for someone to rent your garden or rent a garden yourself !</p>
+                }
+            </div>
+        </div>
+    </div>
+}

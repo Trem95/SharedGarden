@@ -23,6 +23,13 @@ namespace SharedGarden.API.Controllers
             return await Mediator.Send(new GetReservationByIdQuery{ Id = id });
         }
 
+        [HttpGet("UserId/{id}")]
+        public async Task<ActionResult<ReservationsVm>> GetReservationsByUserId(int id)
+        {
+            return await Mediator.Send(new GetReservationByUserId { UserId = id });
+        }
+
+
         [HttpPost]
         public async Task<ActionResult<int>> Create(CreateReservationCommand command)
         {

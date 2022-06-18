@@ -12,14 +12,8 @@ namespace Application.Interaction.Reservations.Commands.CreateReservation
             _context = context;
 
             RuleFor(r => r.ReservationDate)
-                .NotEmpty().WithMessage("Reservation date is required.")
-                .Must(DateIsValid).WithMessage("Reservation date cannot be earlier than today");
+                .NotEmpty().WithMessage("Reservation date is required.");
 
-        }
-
-        public bool DateIsValid(DateTime date)
-        {
-            return date > DateTime.UtcNow;
         }
 
         
